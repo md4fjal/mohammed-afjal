@@ -19,20 +19,40 @@ export default function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    toast.success("Message sent successfully! I'll get back to you soon.", {
-      style: {
-        borderRadius: "16px",
-        background: "#18181b",
-        color: "#fff",
-        border: "1px solid rgba(255,255,255,0.1)",
-      },
-    });
-
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-    setIsSubmitting(false);
+      if (response.ok) {
+        toast.success("Message sent successfully! I'll get back to you soon.", {
+          style: {
+            borderRadius: "16px",
+            background: "#18181b",
+            color: "#fff",
+            border: "1px solid rgba(255,255,255,0.1)",
+          },
+        });
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.", {
+        style: {
+          borderRadius: "16px",
+          background: "#18181b",
+          color: "#fff",
+          border: "1px solid rgba(255,255,255,0.1)",
+        },
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (

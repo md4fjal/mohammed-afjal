@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.className} bg-background`}>
+        <link rel="icon" href="/favicon.svg" />
         {children}
         <Toaster
           position="bottom-right"
@@ -35,4 +36,3 @@ export default function RootLayout({
     </html>
   );
 }
-

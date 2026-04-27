@@ -27,7 +27,7 @@ export default function FloatingButtons() {
     gsap.fromTo(
       containerRef.current,
       { opacity: 0, x: 20 },
-      { opacity: 1, x: 0, duration: 0.8, ease: "power3.out", delay: 1 }
+      { opacity: 1, x: 0, duration: 0.8, ease: "power3.out", delay: 1 },
     );
 
     // 2. Continuous floating animation for WhatsApp
@@ -80,15 +80,26 @@ export default function FloatingButtons() {
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex flex-col gap-4 items-end pointer-events-none"
+      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex gap-4 items-end pointer-events-none"
     >
+      {/* Move to Top Button */}
+      <button
+        ref={topBtnRef}
+        onClick={scrollToTop}
+        aria-label="Move to top"
+        style={{ opacity: 0, pointerEvents: "none" }}
+        className="pointer-events-auto p-4 glass-dark border border-white/10 text-white rounded-full shadow-2xl 
+          hover:bg-white/10 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center"
+      >
+        <ArrowUp className="w-6 h-6" />
+      </button>
       {/* WhatsApp Button */}
       <div className="relative pointer-events-auto">
         {/* Pulse effect background */}
         <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20" />
-        
+
         <button
           ref={whatsappRef}
           onClick={openWhatsApp}
@@ -104,18 +115,6 @@ export default function FloatingButtons() {
           </span>
         </button>
       </div>
-
-      {/* Move to Top Button */}
-      <button
-        ref={topBtnRef}
-        onClick={scrollToTop}
-        aria-label="Move to top"
-        style={{ opacity: 0, pointerEvents: "none" }}
-        className="pointer-events-auto p-4 glass-dark border border-white/10 text-white rounded-full shadow-2xl 
-          hover:bg-white/10 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center"
-      >
-        <ArrowUp className="w-6 h-6" />
-      </button>
     </div>
   );
 }

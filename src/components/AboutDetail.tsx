@@ -1,4 +1,3 @@
-// components/AboutDetail.tsx
 "use client";
 
 import { User, Code, Globe, Palette, Cpu, Sparkles } from "lucide-react";

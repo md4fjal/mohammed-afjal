@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -81,7 +80,7 @@ export default function Home() {
                 start: "top 85%",
                 toggleActions: "play none none reverse",
               },
-            }
+            },
           );
         }
       });
@@ -108,7 +107,6 @@ export default function Home() {
         <Navbar />
         <FloatingButtons />
 
-        {/* Background blobs for modern feel */}
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
           <div className="blob-parallax absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full animate-pulse" />
           <div className="blob-parallax absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full" />

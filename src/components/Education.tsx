@@ -1,4 +1,3 @@
-// components/Education.tsx
 "use client";
 
 import { GraduationCap, Calendar, Award } from "lucide-react";

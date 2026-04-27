@@ -16,6 +16,7 @@ import Services from "@/components/Services";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingButtons from "@/components/FloatingButtons";
+import CustomCursor from "@/components/CustomCursor";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -102,6 +103,7 @@ export default function Home() {
   return (
     <SmoothScroll>
       <div ref={mainRef} className="relative overflow-x-hidden">
+        <CustomCursor />
         <ScrollProgress />
         <Navbar />
         <FloatingButtons />

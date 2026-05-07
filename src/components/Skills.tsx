@@ -128,7 +128,7 @@ export default function Skills() {
         {skillCategories.map((category, idx) => (
           <div
             key={idx}
-            className="skill-card stagger-item group p-10 glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:shadow-2xl hover:shadow-primary/5"
+            className="skill-card stagger-item group p-10 glass-dark rounded-[2.5rem] border border-border hover:border-primary/30 transition-all duration-700 hover:shadow-2xl hover:shadow-primary/5"
           >
             <div className="flex items-center gap-5 mb-6">
               <div className="p-4 glass rounded-2xl text-primary group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-lg">
@@ -148,7 +148,7 @@ export default function Skills() {
               {category.skills.map((skill, sIdx) => (
                 <div
                   key={sIdx}
-                  className="flex items-center gap-3 px-5 py-2.5 glass rounded-full border border-white/5 hover:border-primary/40 hover:bg-white/10 transition-all duration-300 group/skill cursor-default"
+                  className="flex items-center gap-3 px-5 py-2.5 glass rounded-full border border-border hover:border-primary/40 hover:bg-white/10 transition-all duration-300 group/skill cursor-default"
                 >
                   <span className="text-xl group-hover/skill:scale-125 group-hover/skill:rotate-12 transition-transform duration-300">
                     {skill.icon}

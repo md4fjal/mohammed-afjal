@@ -150,7 +150,7 @@ export default function Home() {
           </div>
         </main>
 
-        <footer className="py-20 border-t border-white/5 glass-dark text-center relative overflow-hidden">
+        <footer className="py-20 border-t border-border glass-dark text-center relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="mb-10">
               <h2 className="text-3xl font-black tracking-tighter mb-4">

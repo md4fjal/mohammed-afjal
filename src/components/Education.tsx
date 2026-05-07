@@ -72,13 +72,13 @@ export default function Education() {
         {educationData.map((item, idx) => (
           <div
             key={idx}
-            className="edu-card group p-10 glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:shadow-2xl flex flex-col h-full"
+            className="edu-card group p-10 glass-dark rounded-[2.5rem] border border-border hover:border-primary/30 transition-all duration-700 hover:shadow-2xl flex flex-col h-full"
           >
             <div className="flex items-start justify-between mb-8">
               <div className="p-4 glass rounded-2xl text-primary group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg">
                 <GraduationCap className="w-8 h-8" />
               </div>
-              <div className="flex items-center gap-2 px-4 py-1.5 glass rounded-full border border-white/10 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              <div className="flex items-center gap-2 px-4 py-1.5 glass rounded-full border border-border text-xs font-bold text-muted-foreground uppercase tracking-wider">
                 <Calendar className="w-3.5 h-3.5 text-primary" />
                 {item.period}
               </div>

@@ -90,7 +90,7 @@ export default function FloatingButtons() {
         onClick={scrollToTop}
         aria-label="Move to top"
         style={{ opacity: 0, pointerEvents: "none" }}
-        className="pointer-events-auto p-4 glass-dark border border-white/10 text-white rounded-full shadow-2xl 
+        className="pointer-events-auto p-4 glass-dark border border-border text-white rounded-full shadow-2xl 
           hover:bg-white/10 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center"
       >
         <ArrowUp className="w-6 h-6" />
@@ -110,7 +110,7 @@ export default function FloatingButtons() {
         >
           <FaWhatsapp className="w-6 h-6 md:w-7 md:h-7" />
 
-          <span className="hidden md:block absolute right-full mr-4 px-3 py-1.5 bg-black/80 backdrop-blur-md text-white text-xs font-medium rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 whitespace-nowrap pointer-events-none border border-white/10">
+          <span className="hidden md:block absolute right-full mr-4 px-3 py-1.5 bg-black/80 backdrop-blur-md text-white text-xs font-medium rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 whitespace-nowrap pointer-events-none border border-border">
             Chat on WhatsApp
           </span>
         </button>

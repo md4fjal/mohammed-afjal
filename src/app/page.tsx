@@ -23,79 +23,82 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home() {
   const mainRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    // 1. Reveal animations for sections with a scale and rotation effect
-    const sections = gsap.utils.toArray(".gsap-reveal");
-    sections.forEach((section: any) => {
-      gsap.fromTo(
-        section,
-        {
-          opacity: 0,
-          y: 100,
-          scale: 0.95,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    });
-
-    // 2. Parallax for background blobs - more dramatic
-    gsap.to(".blob-parallax", {
-      yPercent: -40,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1.5,
-      },
-    });
-
-    // 3. Staggered reveal for children items - enhanced
-    const staggerSections = gsap.utils.toArray(".stagger-reveal");
-    staggerSections.forEach((section: any) => {
-      const items = section.querySelectorAll(".stagger-item");
-      if (items.length > 0) {
+  useGSAP(
+    () => {
+      // 1. Reveal animations for sections with a scale and rotation effect
+      const sections = gsap.utils.toArray(".gsap-reveal");
+      sections.forEach((section: any) => {
         gsap.fromTo(
-          items,
-          { opacity: 0, y: 40, scale: 0.9 },
+          section,
+          {
+            opacity: 0,
+            y: 100,
+            scale: 0.95,
+          },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            stagger: 0.15,
-            duration: 1,
-            ease: "back.out(1.4)",
+            duration: 1.2,
+            ease: "expo.out",
             scrollTrigger: {
               trigger: section,
-              start: "top 85%",
+              start: "top 90%",
               toggleActions: "play none none reverse",
             },
-          }
+          },
         );
-      }
-    });
+      });
 
-    // Refresh ScrollTrigger
-    ScrollTrigger.refresh();
+      // 2. Parallax for background blobs - more dramatic
+      gsap.to(".blob-parallax", {
+        yPercent: -40,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.5,
+        },
+      });
 
-    // Delayed refresh to catch any late layout shifts (e.g. images loading, fonts, etc)
-    const timer = setTimeout(() => {
+      // 3. Staggered reveal for children items - enhanced
+      const staggerSections = gsap.utils.toArray(".stagger-reveal");
+      staggerSections.forEach((section: any) => {
+        const items = section.querySelectorAll(".stagger-item");
+        if (items.length > 0) {
+          gsap.fromTo(
+            items,
+            { opacity: 0, y: 40, scale: 0.9 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              stagger: 0.15,
+              duration: 1,
+              ease: "back.out(1.4)",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            },
+          );
+        }
+      });
+
+      // Refresh ScrollTrigger
       ScrollTrigger.refresh();
-    }, 1000);
 
-    return () => clearTimeout(timer);
-  }, { scope: mainRef });
+      // Delayed refresh to catch any late layout shifts (e.g. images loading, fonts, etc)
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    },
+    { scope: mainRef },
+  );
 
   return (
     <SmoothScroll>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
+import { gsap } from "gsap";
 
 const navItems = [
   "Home",
@@ -17,6 +18,8 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +28,16 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      gsap.fromTo(
+        mobileMenuRef.current,
+        { opacity: 0, y: -20, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.7)" }
+      );
+    }
+  }, [isOpen]);
 
   const scrollToSection = (section: string) => {
     const element = document.getElementById(section.toLowerCase());
@@ -46,64 +59,86 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-500 px-4 md:px-8 py-4 ${
-        scrolled ? "translate-y-0" : "translate-y-0"
+      ref={navRef}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 px-4 md:px-8 py-6 ${
+        scrolled ? "py-4" : "py-8"
       }`}
     >
       <div
-        className={`max-w-5xl mx-auto transition-all duration-500 rounded-full px-6 py-2 ${
+        className={`max-w-6xl mx-auto transition-all duration-500 rounded-[2rem] px-6 py-2 ${
           scrolled
-            ? "glass-dark border-white/10 shadow-2xl shadow-black/50"
+            ? "glass-dark border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)]"
             : "bg-transparent border-transparent"
         } border`}
       >
-        <div className="flex items-center justify-between h-12">
+        <div className="flex items-center justify-between h-14">
           <div className="flex-shrink-0">
             <h1
-              className="text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity cursor-pointer"
+              className="text-2xl font-black tracking-tighter hover:opacity-80 transition-opacity cursor-pointer group"
               onClick={() => scrollToSection("Home")}
             >
-              AFJAL<span className="text-primary">.</span>
+              AFJAL<span className="text-primary group-hover:animate-pulse">.</span>
             </h1>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all rounded-full hover:bg-white/5"
+                className="px-5 py-2.5 text-sm font-bold text-muted-foreground hover:text-foreground transition-all rounded-full hover:bg-white/5 active:scale-95"
               >
                 {item}
               </button>
             ))}
           </div>
 
+          <div className="hidden lg:block">
+            <button 
+              onClick={() => scrollToSection("Contact")}
+              className="px-6 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-bold hover:shadow-[0_0_20px_rgba(var(--primary),0.4)] transition-all active:scale-95"
+            >
+              Hire Me
+            </button>
+          </div>
+
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-muted-foreground hover:text-foreground glass rounded-full"
+              className="p-3 text-foreground glass rounded-2xl hover:bg-white/10 active:scale-90 transition-all"
             >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden absolute top-20 left-4 right-4 glass-dark rounded-3xl p-6 border border-white/10 animate-in fade-in zoom-in duration-300">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
+          <div 
+            ref={mobileMenuRef}
+            className="lg:hidden absolute top-24 left-4 right-4 glass-dark rounded-[2.5rem] p-8 border border-white/10 shadow-2xl z-50 overflow-hidden"
+          >
+            <div className="flex flex-col space-y-6">
+              {navItems.map((item, i) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className="text-left text-lg font-medium text-muted-foreground hover:text-primary transition-colors duration-200"
+                  className="text-left text-2xl font-bold text-muted-foreground hover:text-primary transition-all duration-300 transform hover:translate-x-2"
                 >
+                  <span className="text-primary/20 mr-4 font-mono text-sm">0{i + 1}</span>
                   {item}
                 </button>
               ))}
+              <div className="pt-6 border-t border-white/5">
+                <button 
+                  onClick={() => scrollToSection("Contact")}
+                  className="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold text-lg"
+                >
+                  Start a Project
+                </button>
+              </div>
             </div>
           </div>
         )}

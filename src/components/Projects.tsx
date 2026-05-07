@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ExternalLink,
   Github,
@@ -10,6 +10,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { Skeleton } from "boneyard-js/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const projects = [
   {
@@ -86,6 +88,7 @@ const projects = [
 
 export default function Projects() {
   const [isLoading, setIsLoading] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Simulate initial loading for skeleton demonstration
@@ -93,42 +96,74 @@ export default function Projects() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!isLoading) {
+      const ctx = gsap.context(() => {
+        const cards = gsap.utils.toArray(".project-card");
+        cards.forEach((card: any, i: number) => {
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 50, scale: 0.9 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: "back.out(1.7)",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+              delay: i * 0.1,
+            }
+          );
+        });
+      }, containerRef);
+      return () => ctx.revert();
+    }
+  }, [isLoading]);
+
   return (
-    <div id="projects" className="scroll-mt-24">
+    <div id="projects" ref={containerRef} className="scroll-mt-24 py-12">
       <div className="mb-16">
-        <h2 className="text-center md:text-left text-3xl md:text-5xl font-bold mb-4">
+        <h2 className="text-center md:text-left text-4xl md:text-6xl font-bold mb-6">
           Featured <span className="text-gradient">Projects</span>
         </h2>
-        <p className="text-center md:text-left text-lg max-w-2xl">
+        <p className="text-center md:text-left text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
           A selection of my favorite works, blending technical excellence with
-          thoughtful design.
+          thoughtful design and user experience.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-8 md:gap-12">
         {projects.map((project, index) => (
           <Skeleton
             key={index}
             name={`project-card-${index}`}
             loading={isLoading}
             fixture={
-              <div className="h-[400px] w-full glass-dark rounded-3xl" />
+              <div className="h-[450px] w-full glass-dark rounded-3xl" />
             }
           >
-            <div className="group relative flex flex-col h-full glass-dark rounded-3xl border border-white/5 hover:border-primary/20 transition-all duration-500 overflow-hidden">
+            <div className="project-card group relative flex flex-col h-full glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 overflow-hidden shadow-2xl">
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
+                className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-1000`}
               />
-
-              <div className="relative p-8 flex flex-col h-full z-10">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 glass rounded-2xl">{project.icon}</div>
-                  <div className="flex gap-2">
+              
+              <div className="relative p-10 flex flex-col h-full z-10">
+                <div className="flex justify-between items-start mb-8">
+                  <div className="p-4 glass rounded-[1.25rem] group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-xl">
+                    {project.icon}
+                  </div>
+                  <div className="flex gap-3">
                     {project.links.github && (
                       <a
                         href={project.links.github}
                         target="_blank"
-                        className="p-2 glass rounded-full hover:bg-white/10 transition-colors"
+                        rel="noopener noreferrer"
+                        className="p-3 glass rounded-full hover:bg-white/10 hover:scale-110 transition-all duration-300"
+                        title="GitHub Repository"
                       >
                         <Github className="w-5 h-5" />
                       </a>
@@ -137,7 +172,9 @@ export default function Projects() {
                       <a
                         href={project.links.live}
                         target="_blank"
-                        className="p-2 glass rounded-full hover:bg-white/10 transition-colors"
+                        rel="noopener noreferrer"
+                        className="p-3 glass rounded-full hover:bg-white/10 hover:scale-110 transition-all duration-300"
+                        title="Live Preview"
                       >
                         <ExternalLink className="w-5 h-5" />
                       </a>
@@ -145,32 +182,32 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                <h3 className="text-3xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground mb-6 line-clamp-2">
+                <p className="text-muted-foreground text-lg mb-8 line-clamp-3 leading-relaxed">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-8">
+                <div className="flex flex-wrap gap-2 mb-10">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 text-xs font-medium glass rounded-full border border-white/5"
+                      className="px-4 py-1.5 text-xs font-semibold glass rounded-full border border-white/10 text-foreground/80"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                <div className="mt-auto pt-6 border-t border-white/5">
-                  <ul className="space-y-2 mb-6">
+                <div className="mt-auto pt-8 border-t border-white/5">
+                  <ul className="space-y-3 mb-8">
                     {project.features.slice(0, 2).map((feature, i) => (
                       <li
                         key={i}
-                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                        className="flex items-center gap-3 text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300"
                       >
-                        <Zap className="w-3 h-3 text-primary" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                         {feature}
                       </li>
                     ))}
@@ -179,10 +216,11 @@ export default function Projects() {
                   <a
                     href={project.links.live || project.links.github}
                     target="_blank"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-primary group/link"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-primary group/link tracking-wide uppercase"
                   >
-                    View Project Details
-                    <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                    Explore Case Study
+                    <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
                   </a>
                 </div>
               </div>

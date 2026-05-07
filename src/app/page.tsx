@@ -24,57 +24,58 @@ export default function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Reveal animations for sections
+      // 1. Reveal animations for sections with a scale and rotation effect
       const sections = gsap.utils.toArray(".gsap-reveal");
       sections.forEach((section: any) => {
         gsap.fromTo(
           section,
           {
-            autoAlpha: 0,
-            y: 80,
-            clipPath: "inset(20% 0% 20% 0%)",
+            opacity: 0,
+            y: 100,
+            scale: 0.95,
           },
           {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 1.5,
+            scale: 1,
+            duration: 1.2,
             ease: "expo.out",
             scrollTrigger: {
               trigger: section,
-              start: "top 85%",
+              start: "top 90%",
               toggleActions: "play none none reverse",
             },
           },
         );
       });
 
-      // 2. Parallax for background blobs
+      // 2. Parallax for background blobs - more dramatic
       gsap.to(".blob-parallax", {
-        yPercent: -20,
+        yPercent: -40,
         ease: "none",
         scrollTrigger: {
           trigger: "body",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1,
+          scrub: 1.5,
         },
       });
 
-      // 3. Staggered reveal for children of certain sections
+      // 3. Staggered reveal for children items - enhanced
       const staggerSections = gsap.utils.toArray(".stagger-reveal");
       staggerSections.forEach((section: any) => {
         const items = section.querySelectorAll(".stagger-item");
         if (items.length > 0) {
           gsap.fromTo(
             items,
-            { opacity: 0, y: 30 },
+            { opacity: 0, y: 40, scale: 0.9 },
             {
               opacity: 1,
               y: 0,
-              stagger: 0.1,
-              duration: 0.8,
-              ease: "power3.out",
+              scale: 1,
+              stagger: 0.15,
+              duration: 1,
+              ease: "back.out(1.4)",
               scrollTrigger: {
                 trigger: section,
                 start: "top 85%",
@@ -85,15 +86,8 @@ export default function Home() {
         }
       });
 
-      // 4. Refresh ScrollTrigger to ensure all positions are correct
+      // Refresh ScrollTrigger
       ScrollTrigger.refresh();
-
-      // 5. Delayed refresh to catch layout shifts from skeletons loading
-      const timeoutId = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 2500);
-
-      return () => clearTimeout(timeoutId);
     }, mainRef);
 
     return () => ctx.revert();
@@ -101,21 +95,27 @@ export default function Home() {
 
   return (
     <SmoothScroll>
-      <div ref={mainRef} className="relative overflow-x-hidden">
+      <div
+        ref={mainRef}
+        className="relative overflow-x-hidden selection:bg-primary/30 selection:text-foreground"
+      >
         <CustomCursor />
         <ScrollProgress />
         <Navbar />
         <FloatingButtons />
 
+        {/* Global Animated Background */}
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="blob-parallax absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 blur-[120px] rounded-full animate-pulse" />
-          <div className="blob-parallax absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full" />
+          <div className="blob-parallax absolute top-[-10%] left-[-5%] w-[50%] h-[50%] bg-primary/10 blur-[150px] rounded-full animate-pulse" />
+          <div className="blob-parallax absolute top-[20%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full" />
+          <div className="blob-parallax absolute bottom-[10%] left-[10%] w-[35%] h-[35%] bg-blue-500/5 blur-[100px] rounded-full" />
+          <div className="blob-parallax absolute bottom-[-5%] right-[5%] w-[45%] h-[45%] bg-pink-500/10 blur-[140px] rounded-full animate-pulse" />
         </div>
 
         <main className="relative z-10">
           <HeroSection />
 
-          <div className="section-container space-y-12 md:space-y-48 pb-12 md:pb-32">
+          <div className="section-container space-y-24 md:space-y-64 pb-24 md:pb-48">
             <section className="gsap-reveal">
               <AboutDetail />
             </section>
@@ -146,12 +146,49 @@ export default function Home() {
           </div>
         </main>
 
-        <footer className="py-12 border-t border-white/5 glass-dark text-center">
-          <div className="max-w-7xl mx-auto px-4">
-            <p className="text-muted-foreground">
-              © {new Date().getFullYear()} Afjal. Full Stack Developer
+        <footer className="py-20 border-t border-white/5 glass-dark text-center relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="mb-10">
+              <h2 className="text-3xl font-black tracking-tighter mb-4">
+                AFJAL<span className="text-primary">.</span>
+              </h2>
+              <p className="text-muted-foreground max-w-md mx-auto">
+                Building digital products that combine technical excellence with
+                exceptional user experience.
+              </p>
+            </div>
+
+            <div className="flex justify-center gap-8 mb-12">
+              <a
+                href="https://www.linkedin.com/in/mohammed-afjal-70698a239"
+                className="text-muted-foreground hover:text-primary transition-colors font-medium"
+                target="_blank"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/md4fjal"
+                className="text-muted-foreground hover:text-primary transition-colors font-medium"
+                target="_blank"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://www.instagram.com/4fjal/"
+                className="text-muted-foreground hover:text-primary transition-colors font-medium"
+                target="_blank"
+              >
+                Instagram
+              </a>
+            </div>
+
+            <p className="text-xs uppercase tracking-[0.4em] text-muted-foreground/50">
+              © {new Date().getFullYear()} All Rights Reserved
             </p>
           </div>
+
+          {/* Footer background glow */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-primary/10 blur-[100px] rounded-full translate-y-1/2" />
         </footer>
       </div>
     </SmoothScroll>

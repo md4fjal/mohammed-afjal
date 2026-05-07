@@ -62,30 +62,30 @@ const services = [
 
 export default function Services() {
   return (
-    <div id="services" className="scroll-mt-24">
+    <div id="services" className="scroll-mt-24 py-12">
       <div className="mb-16">
-        <h2 className="text-center md:text-left text-3xl md:text-5xl font-bold mb-4">
+        <h2 className="text-center md:text-left text-4xl md:text-6xl font-bold mb-6">
           What I <span className="text-gradient">Deliver</span>
         </h2>
-        <p className="text-center md:text-left text-lg max-w-2xl">
+        <p className="text-center md:text-left text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
           Comprehensive digital solutions tailored to meet modern business needs
-          and user expectations.
+          and exceed user expectations.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.map((service, index) => (
           <div
             key={index}
-            className="group p-8 glass-dark rounded-3xl border border-white/5 hover:border-primary/20 transition-all duration-500 hover:-translate-y-2"
+            className="group p-10 glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl"
           >
             <div
-              className={`w-14 h-14 rounded-2xl ${service.bg} ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}
+              className={`w-16 h-16 rounded-2xl ${service.bg} ${service.color} flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg`}
             >
               {service.icon}
             </div>
-            <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
+            <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+            <p className="text-muted-foreground text-base leading-relaxed">
               {service.description}
             </p>
           </div>

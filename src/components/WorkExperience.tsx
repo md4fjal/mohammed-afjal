@@ -128,7 +128,7 @@ export default function WorkExperience() {
             <div className="absolute left-5 md:left-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary -translate-x-1/2 z-20 group-hover:scale-150 group-hover:bg-primary transition-all duration-500 shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
 
             {/* Content Card */}
-            <div className="w-[calc(100%-4rem)] md:w-[calc(50%-4rem)] ml-auto md:ml-0 p-10 glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:shadow-2xl hover:shadow-primary/5">
+            <div className="w-[calc(100%-4rem)] md:w-[calc(50%-4rem)] ml-auto md:ml-0 p-10 glass-dark rounded-[2.5rem] border border-border hover:border-primary/30 transition-all duration-700 hover:shadow-2xl hover:shadow-primary/5">
               <div className="flex flex-col gap-6">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center gap-5">
@@ -162,7 +162,7 @@ export default function WorkExperience() {
                   {exp.skills.map((skill) => (
                     <span 
                       key={skill}
-                      className="px-3 py-1 text-[10px] font-black uppercase tracking-tighter glass rounded-lg border border-white/5 text-muted-foreground group-hover:text-primary transition-colors"
+                      className="px-3 py-1 text-[10px] font-black uppercase tracking-tighter glass rounded-lg border border-border text-muted-foreground group-hover:text-primary transition-colors"
                     >
                       {skill}
                     </span>

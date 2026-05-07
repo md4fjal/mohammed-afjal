@@ -108,7 +108,7 @@ export default function ContactSection() {
       <div className="grid lg:grid-cols-5 gap-12">
         {/* Contact Info */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="p-8 glass-dark rounded-3xl border border-white/5 space-y-8">
+          <div className="p-8 glass-dark rounded-3xl border border-border space-y-8">
             <div className="space-y-6">
               <div className="flex items-center gap-4 group">
                 <div className="p-4 glass rounded-2xl text-primary group-hover:scale-110 transition-transform duration-300">
@@ -158,7 +158,7 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="pt-8 border-t border-white/5">
+            <div className="pt-8 border-t border-border">
               <p className="text-muted-foreground text-xs font-semibold uppercase tracking-widest mb-4">
                 Social Presence
               </p>
@@ -202,7 +202,7 @@ export default function ContactSection() {
         <div className="lg:col-span-3">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="p-8 glass-dark rounded-3xl border border-white/5 space-y-6"
+            className="p-8 glass-dark rounded-3xl border border-border space-y-6"
           >
             <div className="grid md:grid-cols-2 gap-6">
               {/* Name Field */}
@@ -222,7 +222,7 @@ export default function ContactSection() {
                         ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
                         : touchedFields.name
                           ? "border-green-500/30 focus:border-green-500/50"
-                          : "border-white/10 focus:border-primary/50"
+                          : "border-border focus:border-primary/50"
                     }`}
                     placeholder="Your name"
                   />
@@ -256,7 +256,7 @@ export default function ContactSection() {
                         ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
                         : touchedFields.email
                           ? "border-green-500/30 focus:border-green-500/50"
-                          : "border-white/10 focus:border-primary/50"
+                          : "border-border focus:border-primary/50"
                     }`}
                     placeholder="hello@example.com"
                   />
@@ -295,7 +295,7 @@ export default function ContactSection() {
                         ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
                         : touchedFields.phone && phoneValue
                           ? "border-green-500/30 focus:border-green-500/50"
-                          : "border-white/10 focus:border-primary/50"
+                          : "border-border focus:border-primary/50"
                     }`}
                     placeholder="+1 (555) 000-0000"
                   />
@@ -329,7 +329,7 @@ export default function ContactSection() {
                         ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
                         : touchedFields.subject
                           ? "border-green-500/30 focus:border-green-500/50"
-                          : "border-white/10 focus:border-primary/50"
+                          : "border-border focus:border-primary/50"
                     }`}
                     placeholder="What's this about?"
                   />
@@ -364,7 +364,7 @@ export default function ContactSection() {
                       ? "border-red-500/50 focus:border-red-500 bg-red-500/5"
                       : touchedFields.message
                         ? "border-green-500/30 focus:border-green-500/50"
-                        : "border-white/10 focus:border-primary/50"
+                        : "border-border focus:border-primary/50"
                   }`}
                   placeholder="Tell me about your project..."
                 />

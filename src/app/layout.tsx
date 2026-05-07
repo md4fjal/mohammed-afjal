@@ -6,10 +6,12 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Afjal | Full Stack Developer Portfolio",
+  title: "AFJAL | Full Stack Developer Portfolio",
   description:
     "Animated portfolio of Afjal, a Full Stack Developer specializing in React, Node.js, and modern web technologies.",
 };
+
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export default function RootLayout({
   children,
@@ -17,20 +19,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-background`}>
-        <link rel="icon" href="/favicon.svg" />
-        {children}
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "#18181b",
-              color: "#fff",
-              border: "1px solid #27272a",
-            },
-          }}
-        />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <link rel="icon" href="/favicon.svg" />
+          {children}
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "hsl(var(--card))",
+                color: "hsl(var(--card-foreground))",
+                border: "1px solid hsl(var(--border))",
+              },
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

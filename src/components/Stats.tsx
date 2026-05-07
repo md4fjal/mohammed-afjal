@@ -13,7 +13,7 @@ export default function Stats() {
       {stats.map((stat, i) => (
         <div
           key={i}
-          className="p-6 glass-dark rounded-3xl border border-white/5 flex flex-col items-center justify-center text-center group hover:border-primary/20 transition-all duration-500"
+          className="p-6 glass-dark rounded-3xl border border-border flex flex-col items-center justify-center text-center group hover:border-primary/20 transition-all duration-500"
         >
           <span className="text-3xl md:text-4xl font-bold text-gradient mb-2 group-hover:scale-110 transition-transform duration-500">
             {stat.value}

@@ -148,7 +148,7 @@ export default function Projects() {
               <div className="h-[450px] w-full glass-dark rounded-3xl" />
             }
           >
-            <div className="project-card group relative flex flex-col h-full glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 overflow-hidden shadow-2xl">
+            <div className="project-card group relative flex flex-col h-full glass-dark rounded-[2.5rem] border border-border hover:border-primary/30 transition-all duration-700 overflow-hidden shadow-2xl">
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-1000`}
               />
@@ -195,7 +195,7 @@ export default function Projects() {
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-4 py-1.5 text-xs font-semibold glass rounded-full border border-white/10 text-foreground/80"
+                      className="px-4 py-1.5 text-xs font-semibold glass rounded-full border border-border text-foreground/80"
                     >
                       {tech}
                     </span>

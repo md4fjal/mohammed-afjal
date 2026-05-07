@@ -42,7 +42,7 @@ export default function AboutDetail() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 about-item">
-            <div className="group p-8 glass-dark rounded-3xl border border-white/5 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl">
+            <div className="group p-8 glass-dark rounded-3xl border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-2xl">
               <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform">
                 <Code className="w-6 h-6" />
               </div>
@@ -51,7 +51,7 @@ export default function AboutDetail() {
                 Adhering to best practices for maintainable and efficient architectures.
               </p>
             </div>
-            <div className="group p-8 glass-dark rounded-3xl border border-white/5 hover:border-purple-500/30 transition-all duration-500 hover:shadow-2xl">
+            <div className="group p-8 glass-dark rounded-3xl border border-border hover:border-purple-500/30 transition-all duration-500 hover:shadow-2xl">
               <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 group-hover:-rotate-6 transition-transform">
                 <Palette className="w-6 h-6" />
               </div>
@@ -70,7 +70,7 @@ export default function AboutDetail() {
         </div>
 
         <div className="relative order-1 lg:order-2 about-item">
-          <div className="aspect-square glass-dark rounded-[3rem] border border-white/10 overflow-hidden relative group shadow-2xl">
+          <div className="aspect-square glass-dark rounded-[3rem] border border-border overflow-hidden relative group shadow-2xl">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-purple-500/30 group-hover:opacity-100 transition-opacity duration-1000 opacity-60" />
             
             <div className="absolute inset-0 flex items-center justify-center p-12">
@@ -93,7 +93,7 @@ export default function AboutDetail() {
               <div className="absolute w-32 h-32 md:w-40 md:h-40 rounded-full border border-primary/20 animate-[spin_15s_linear_infinite_reverse]" />
             </div>
 
-            <div className="absolute bottom-10 left-10 right-10 p-8 glass rounded-[2rem] border border-white/10 backdrop-blur-2xl shadow-2xl transform group-hover:-translate-y-2 transition-transform duration-700">
+            <div className="absolute bottom-10 left-10 right-10 p-8 glass rounded-[2rem] border border-border backdrop-blur-2xl shadow-2xl transform group-hover:-translate-y-2 transition-transform duration-700">
               <div className="flex items-center gap-5">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg transform -rotate-3 group-hover:rotate-0 transition-transform">
                   A
@@ -109,7 +109,7 @@ export default function AboutDetail() {
           </div>
 
           {/* Decorative badges */}
-          <div className="absolute -top-8 -right-8 p-5 glass rounded-[1.5rem] border border-white/10 shadow-2xl animate-bounce-slow">
+          <div className="absolute -top-8 -right-8 p-5 glass rounded-[1.5rem] border border-border shadow-2xl animate-bounce-slow">
             <div className="flex items-center gap-3">
               <div className="p-2.5 bg-green-500/20 rounded-xl">
                 <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse" />
@@ -120,7 +120,7 @@ export default function AboutDetail() {
             </div>
           </div>
           
-          <div className="absolute -bottom-6 -left-6 p-4 glass rounded-[1.25rem] border border-white/10 shadow-2xl animate-float delay-1000">
+          <div className="absolute -bottom-6 -left-6 p-4 glass rounded-[1.25rem] border border-border shadow-2xl animate-float delay-1000">
             <Globe className="w-6 h-6 text-blue-400" />
           </div>
         </div>

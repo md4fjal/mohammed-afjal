@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import { Sparkles, ChevronRight, MousePointer2 } from "lucide-react";
 import Stats from "@/components/Stats";
 
@@ -13,87 +14,83 @@ export default function HeroSection() {
   const buttonRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline();
+  useGSAP(() => {
+    const tl = gsap.timeline();
 
-      // Set initial states
-      gsap.set([textRef.current, subtextRef.current, buttonRef.current, statsRef.current], {
-        opacity: 0,
-        y: 50,
-      });
+    // Set initial states
+    gsap.set([textRef.current, subtextRef.current, buttonRef.current, statsRef.current], {
+      opacity: 0,
+      y: 50,
+    });
 
-      tl.to(textRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "expo.out",
-      })
-        .to(
-          subtextRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          },
-          "-=0.6"
-        )
-        .to(
-          buttonRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          },
-          "-=0.6"
-        )
-        .to(
-          statsRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-          },
-          "-=0.6"
-        );
-
-      // Parallax effect on mouse move
-      const handleMouseMove = (e: MouseEvent) => {
-        const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5) * 30;
-        const yPos = (clientY / window.innerHeight - 0.5) * 30;
-
-        gsap.to(".hero-parallax", {
-          x: xPos,
-          y: yPos,
-          duration: 1,
+    tl.to(textRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "expo.out",
+    })
+      .to(
+        subtextRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
           ease: "power2.out",
-        });
-      };
+        },
+        "-=0.6"
+      )
+      .to(
+        buttonRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        "-=0.6"
+      )
+      .to(
+        statsRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        },
+        "-=0.6"
+      );
 
-      window.addEventListener("mousemove", handleMouseMove);
+    // Parallax effect on mouse move
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const xPos = (clientX / window.innerWidth - 0.5) * 30;
+      const yPos = (clientY / window.innerHeight - 0.5) * 30;
 
-      // Float animation for background blobs
-      gsap.to(".blob", {
-        y: "random(-40, 40)",
-        x: "random(-40, 40)",
-        duration: "random(4, 8)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 0.5,
+      gsap.to(".hero-parallax", {
+        x: xPos,
+        y: yPos,
+        duration: 1,
+        ease: "power2.out",
       });
+    };
 
-      return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
-      };
-    }, heroRef);
+    window.addEventListener("mousemove", handleMouseMove);
 
-    return () => ctx.revert();
-  }, []);
+    // Float animation for background blobs
+    gsap.to(".blob", {
+      y: "random(-40, 40)",
+      x: "random(-40, 40)",
+      duration: "random(4, 8)",
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      stagger: 0.5,
+    });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, { scope: heroRef });
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);

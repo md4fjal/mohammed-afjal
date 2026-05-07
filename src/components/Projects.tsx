@@ -12,6 +12,7 @@ import {
 import { Skeleton } from "boneyard-js/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 const projects = [
   {
@@ -96,9 +97,9 @@ export default function Projects() {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (!isLoading) {
-      const ctx = gsap.context(() => {
+      const timeout = setTimeout(() => {
         const cards = gsap.utils.toArray(".project-card");
         cards.forEach((card: any, i: number) => {
           gsap.fromTo(
@@ -112,17 +113,18 @@ export default function Projects() {
               ease: "back.out(1.7)",
               scrollTrigger: {
                 trigger: card,
-                start: "top 85%",
+                start: "top bottom",
                 toggleActions: "play none none reverse",
               },
               delay: i * 0.1,
+              clearProps: "all"
             }
           );
         });
-      }, containerRef);
-      return () => ctx.revert();
+      }, 100);
+      return () => clearTimeout(timeout);
     }
-  }, [isLoading]);
+  }, { dependencies: [isLoading], scope: containerRef });
 
   return (
     <div id="projects" ref={containerRef} className="scroll-mt-24 py-12">

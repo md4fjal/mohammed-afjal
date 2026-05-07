@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import {
   Briefcase,
   Users,
@@ -17,8 +18,8 @@ import {
 export default function WorkExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  useGSAP(() => {
+    const timeout = setTimeout(() => {
       const cards = gsap.utils.toArray(".exp-card");
       cards.forEach((card: any, i: number) => {
         gsap.fromTo(
@@ -36,9 +37,10 @@ export default function WorkExperience() {
             ease: "expo.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 85%",
+              start: "top bottom",
               toggleActions: "play none none reverse",
             },
+            clearProps: "all"
           }
         );
       });
@@ -59,9 +61,10 @@ export default function WorkExperience() {
           },
         }
       );
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, { scope: containerRef });
 
   const experiences = [
     {

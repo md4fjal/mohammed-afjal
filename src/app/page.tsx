@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import HeroSection from "@/components/HeroSection";
 import WorkExperience from "@/components/WorkExperience";
 import Education from "@/components/Education";
@@ -22,76 +23,79 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home() {
   const mainRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // 1. Reveal animations for sections with a scale and rotation effect
-      const sections = gsap.utils.toArray(".gsap-reveal");
-      sections.forEach((section: any) => {
-        gsap.fromTo(
-          section,
-          {
-            opacity: 0,
-            y: 100,
-            scale: 0.95,
+  useGSAP(() => {
+    // 1. Reveal animations for sections with a scale and rotation effect
+    const sections = gsap.utils.toArray(".gsap-reveal");
+    sections.forEach((section: any) => {
+      gsap.fromTo(
+        section,
+        {
+          opacity: 0,
+          y: 100,
+          scale: 0.95,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
           },
+        }
+      );
+    });
+
+    // 2. Parallax for background blobs - more dramatic
+    gsap.to(".blob-parallax", {
+      yPercent: -40,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.5,
+      },
+    });
+
+    // 3. Staggered reveal for children items - enhanced
+    const staggerSections = gsap.utils.toArray(".stagger-reveal");
+    staggerSections.forEach((section: any) => {
+      const items = section.querySelectorAll(".stagger-item");
+      if (items.length > 0) {
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: 40, scale: 0.9 },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            duration: 1.2,
-            ease: "expo.out",
+            stagger: 0.15,
+            duration: 1,
+            ease: "back.out(1.4)",
             scrollTrigger: {
               trigger: section,
-              start: "top 90%",
+              start: "top 85%",
               toggleActions: "play none none reverse",
             },
-          },
+          }
         );
-      });
+      }
+    });
 
-      // 2. Parallax for background blobs - more dramatic
-      gsap.to(".blob-parallax", {
-        yPercent: -40,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "body",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1.5,
-        },
-      });
+    // Refresh ScrollTrigger
+    ScrollTrigger.refresh();
 
-      // 3. Staggered reveal for children items - enhanced
-      const staggerSections = gsap.utils.toArray(".stagger-reveal");
-      staggerSections.forEach((section: any) => {
-        const items = section.querySelectorAll(".stagger-item");
-        if (items.length > 0) {
-          gsap.fromTo(
-            items,
-            { opacity: 0, y: 40, scale: 0.9 },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              stagger: 0.15,
-              duration: 1,
-              ease: "back.out(1.4)",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-            },
-          );
-        }
-      });
-
-      // Refresh ScrollTrigger
+    // Delayed refresh to catch any late layout shifts (e.g. images loading, fonts, etc)
+    const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, mainRef);
+    }, 1000);
 
-    return () => ctx.revert();
-  }, []);
+    return () => clearTimeout(timer);
+  }, { scope: mainRef });
 
   return (
     <SmoothScroll>
@@ -116,19 +120,19 @@ export default function Home() {
           <HeroSection />
 
           <div className="section-container space-y-24 md:space-y-64 pb-24 md:pb-48">
-            <section className="gsap-reveal">
+            <section>
               <AboutDetail />
             </section>
 
-            <section className="gsap-reveal">
+            <section>
               <Services />
             </section>
 
-            <section className="gsap-reveal">
+            <section>
               <WorkExperience />
             </section>
 
-            <section className="gsap-reveal">
+            <section>
               <Projects />
             </section>
 
@@ -136,7 +140,7 @@ export default function Home() {
               <Skills />
             </section>
 
-            <section className="gsap-reveal">
+            <section>
               <Education />
             </section>
 

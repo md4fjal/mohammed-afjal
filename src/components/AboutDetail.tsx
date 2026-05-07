@@ -1,28 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { User, Code, Globe, Palette, Cpu, Sparkles } from "lucide-react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function AboutDetail() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".about-item", {
-        scrollTrigger: {
-          trigger: ".about-item",
-          start: "top 90%",
-        },
-        opacity: 0,
-        y: 30,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power3.out",
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
+  useGSAP(() => {
+    gsap.from(".about-item", {
+      scrollTrigger: {
+        trigger: ".about-item",
+        start: "top bottom",
+      },
+      opacity: 0,
+      y: 30,
+      stagger: 0.2,
+      duration: 1,
+      ease: "power3.out",
+    });
+  }, { scope: containerRef });
 
   return (
     <div id="about" ref={containerRef} className="scroll-mt-24 py-12">

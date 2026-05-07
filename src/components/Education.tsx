@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { GraduationCap, Calendar, Award, BookOpen } from "lucide-react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const educationData = [
   {
@@ -26,22 +27,34 @@ const educationData = [
 export default function Education() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".edu-card", {
-        scrollTrigger: {
-          trigger: ".edu-card",
-          start: "top 90%",
+  useGSAP(() => {
+    // Small delay to ensure everything is settled
+    const timeout = setTimeout(() => {
+      gsap.fromTo(".edu-card", 
+        {
+          opacity: 0,
+          y: 60,
+          scale: 0.9,
         },
-        opacity: 0,
-        y: 30,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power3.out",
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          stagger: 0.2,
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            toggleActions: "play none none reverse",
+          },
+          clearProps: "transform,opacity",
+        }
+      );
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, { scope: containerRef });
 
   return (
     <div id="education" ref={containerRef} className="scroll-mt-24 py-12">

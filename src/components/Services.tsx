@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import {
   Monitor,
   Smartphone,
@@ -8,6 +9,8 @@ import {
   Database,
   Search,
 } from "lucide-react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const services = [
   {
@@ -61,8 +64,35 @@ const services = [
 ];
 
 export default function Services() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const timeout = setTimeout(() => {
+      gsap.fromTo(".service-card", 
+        {
+          opacity: 0,
+          y: 40,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            toggleActions: "play none none reverse",
+          },
+          clearProps: "all"
+        }
+      );
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, { scope: containerRef });
+
   return (
-    <div id="services" className="scroll-mt-24 py-12">
+    <div id="services" ref={containerRef} className="scroll-mt-24 py-12">
       <div className="mb-16">
         <h2 className="text-center md:text-left text-4xl md:text-6xl font-bold mb-6">
           What I <span className="text-gradient">Deliver</span>
@@ -77,7 +107,7 @@ export default function Services() {
         {services.map((service, index) => (
           <div
             key={index}
-            className="group p-10 glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl"
+            className="service-card group p-10 glass-dark rounded-[2.5rem] border border-white/5 hover:border-primary/30 transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl"
           >
             <div
               className={`w-16 h-16 rounded-2xl ${service.bg} ${service.color} flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 shadow-lg`}

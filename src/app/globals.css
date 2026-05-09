@@ -115,6 +115,7 @@
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes bounce-slow {
@@ -124,6 +125,11 @@
 
 .animate-bounce-slow {
   animation: bounce-slow 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.blob-parallax, .blob-1, .blob-2, .blob-3 {
+  will-change: transform, opacity;
 }
 
 /* Lenis Recommended CSS */

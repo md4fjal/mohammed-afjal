@@ -33,16 +33,19 @@ export default function Education() {
       gsap.fromTo(".edu-card", 
         {
           opacity: 0,
-          y: 60,
+          y: 80,
           scale: 0.9,
+          rotationX: 10,
+          transformPerspective: 1000,
         },
         {
           opacity: 1,
           y: 0,
           scale: 1,
+          rotationX: 0,
           stagger: 0.2,
-          duration: 1.2,
-          ease: "power4.out",
+          duration: 1.4,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top bottom",

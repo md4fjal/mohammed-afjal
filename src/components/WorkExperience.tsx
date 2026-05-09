@@ -119,8 +119,8 @@ export default function WorkExperience() {
 
       <div className="timeline-container relative space-y-12 md:space-y-32">
         {/* The Animated Line */}
-        <div className="timeline-line absolute left-5 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-purple-500 to-blue-500 origin-top hidden md:block" />
-        <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 hidden md:block" />
+        <div className="timeline-line absolute left-5 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-purple-500 to-blue-500 origin-top" />
+        <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5" />
 
         {experiences.map((exp, index) => (
           <div

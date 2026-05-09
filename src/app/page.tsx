@@ -50,18 +50,6 @@ export default function Home() {
         );
       });
 
-      // 2. Parallax for background blobs - more dramatic
-      gsap.to(".blob-parallax", {
-        yPercent: -40,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "body",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1.5,
-        },
-      });
-
       // 3. Staggered reveal for children items - enhanced
       const staggerSections = gsap.utils.toArray(".stagger-reveal");
       staggerSections.forEach((section: any) => {
@@ -69,11 +57,12 @@ export default function Home() {
         if (items.length > 0) {
           gsap.fromTo(
             items,
-            { opacity: 0, y: 40, scale: 0.9 },
+            { opacity: 0, y: 60, scale: 0.8, rotationX: 15, transformPerspective: 1000 },
             {
               opacity: 1,
               y: 0,
               scale: 1,
+              rotationX: 0,
               stagger: 0.15,
               duration: 1,
               ease: "back.out(1.4)",
@@ -111,18 +100,10 @@ export default function Home() {
         <Navbar />
         <FloatingButtons />
 
-        {/* Global Animated Background */}
-        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="blob-parallax absolute top-[-10%] left-[-5%] w-[50%] h-[50%] bg-primary/10 blur-[150px] rounded-full animate-pulse" />
-          <div className="blob-parallax absolute top-[20%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full" />
-          <div className="blob-parallax absolute bottom-[10%] left-[10%] w-[35%] h-[35%] bg-blue-500/5 blur-[100px] rounded-full" />
-          <div className="blob-parallax absolute bottom-[-5%] right-[5%] w-[45%] h-[45%] bg-pink-500/10 blur-[140px] rounded-full animate-pulse" />
-        </div>
-
         <main className="relative z-10">
           <HeroSection />
 
-          <div className="section-container space-y-24 md:space-y-64 pb-24 md:pb-48">
+          <div className="section-container space-y-20 md:space-y-32 pb-20 md:pb-32">
             <section>
               <AboutDetail />
             </section>

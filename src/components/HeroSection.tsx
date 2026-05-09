@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Sparkles, ChevronRight } from "lucide-react";
@@ -14,8 +14,6 @@ export default function HeroSection() {
   const buttonRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
-
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useGSAP(
     () => {
@@ -103,8 +101,6 @@ export default function HeroSection() {
         const xPos = (clientX / window.innerWidth - 0.5) * 40;
         const yPos = (clientY / window.innerHeight - 0.5) * 40;
 
-        setMousePos({ x: clientX, y: clientY });
-
         gsap.to(".hero-parallax", {
           x: xPos,
           y: yPos,
@@ -182,7 +178,7 @@ export default function HeroSection() {
         <div className="mb-8">
           <h1
             ref={textRef}
-            className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-[0.9] flex flex-col items-center"
+            className="text-[clamp(3rem,8vw,8rem)] font-black tracking-tight leading-[0.9] flex flex-col items-center"
           >
             <span className="title-line block overflow-hidden py-2">
               Crafting Digital

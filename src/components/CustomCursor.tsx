@@ -34,30 +34,44 @@ export default function CustomCursor() {
     const onMouseDown = () => setIsClicking(true);
     const onMouseUp = () => setIsClicking(false);
 
-    const onMouseEnter = () => setIsHovering(true);
-    const onMouseLeave = () => setIsHovering(false);
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName.toLowerCase() === "button" ||
+        target.tagName.toLowerCase() === "a" ||
+        target.tagName.toLowerCase() === "input" ||
+        target.tagName.toLowerCase() === "textarea" ||
+        target.closest("button, a, input, textarea, [role='button'], .group")
+      ) {
+        setIsHovering(true);
+      }
+    };
+
+    const onMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName.toLowerCase() === "button" ||
+        target.tagName.toLowerCase() === "a" ||
+        target.tagName.toLowerCase() === "input" ||
+        target.tagName.toLowerCase() === "textarea" ||
+        target.closest("button, a, input, textarea, [role='button'], .group")
+      ) {
+        setIsHovering(false);
+      }
+    };
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
-
-    const interactiveElements = document.querySelectorAll(
-      'button, a, input, textarea, [role="button"], .group'
-    );
-    
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", onMouseEnter);
-      el.addEventListener("mouseleave", onMouseLeave);
-    });
+    window.addEventListener("mouseover", onMouseOver);
+    window.addEventListener("mouseout", onMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
-      interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", onMouseEnter);
-        el.removeEventListener("mouseleave", onMouseLeave);
-      });
+      window.removeEventListener("mouseover", onMouseOver);
+      window.removeEventListener("mouseout", onMouseOut);
     };
   }, []);
 

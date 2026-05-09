@@ -71,14 +71,19 @@ export default function Services() {
       gsap.fromTo(".service-card", 
         {
           opacity: 0,
-          y: 40,
+          y: 60,
+          scale: 0.9,
+          rotationY: 15,
+          transformPerspective: 1000,
         },
         {
           opacity: 1,
           y: 0,
-          stagger: 0.1,
-          duration: 1,
-          ease: "power3.out",
+          scale: 1,
+          rotationY: 0,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top bottom",

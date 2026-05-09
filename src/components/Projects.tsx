@@ -104,19 +104,21 @@ export default function Projects() {
         cards.forEach((card: any, i: number) => {
           gsap.fromTo(
             card,
-            { opacity: 0, y: 50, scale: 0.9 },
+            { opacity: 0, y: 100, scale: 0.8, rotationX: 15, rotationY: 10, transformPerspective: 1000 },
             {
               opacity: 1,
               y: 0,
               scale: 1,
-              duration: 0.8,
-              ease: "back.out(1.7)",
+              rotationX: 0,
+              rotationY: 0,
+              duration: 1.2,
+              ease: "expo.out",
               scrollTrigger: {
                 trigger: card,
-                start: "top bottom",
+                start: "top 90%",
                 toggleActions: "play none none reverse",
               },
-              delay: i * 0.1,
+              delay: i * 0.15,
               clearProps: "all"
             }
           );
